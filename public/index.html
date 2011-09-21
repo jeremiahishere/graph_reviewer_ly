@@ -2,6 +2,14 @@
 <html>
   <head>
     <title>Ruby on Rails: Welcome aboard</title>
+    <script src="http://dev.graphreviewer.ly:8080/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io.connect('http://dev.graphreviewer.ly:8080/');
+      socket.on('connect', function() {
+        alert('connected to nodejs')
+        socket.emit('update_position', { x: 112, y: 73, object_id: 1 })
+      })
+    </script>
     <style type="text/css" media="screen">
       body {
         margin: 0;

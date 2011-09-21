@@ -1,0 +1,49 @@
+{
+   "name": "graph_reviewer_ly_node",
+   "version": "0.0.1",
+   "description": "SocketIO buffer layer for setting positions in graph_reviewer_ly",
+   "keywords": [
+       "socket.io"
+   ],
+   "maintainers": [
+       {
+           "name": "Daniel Lewis",
+           "email": "daniel@cloudspace.com",
+           "web": "http://labs.cloudspace.com/"
+       } 
+   ],
+   "contributors": [
+       {
+           "name": "Daniel Lewis",
+           "email": "daniel@cloudspace.com",
+           "web": "http://www.cloudspace.com/"
+       } 
+   ],
+   "bugs": {
+       "email": "daniel@cloudspace.com",
+       "web": "http://www.cloudspace.com" 
+   },
+   "licenses": [
+       {
+           "type": "GPLv2",
+           "url": ""
+       } 
+   ],
+   "repositories": [
+       {
+           "type": "git",
+           "url": "git@github.com:jeremiahishere/graph_reviewer_ly.git" 
+       } 
+   ],
+   "dependencies": {
+       "socket.io": ""
+   },
+   "os": ["linux"],
+   "cpu": ["x86", "x86_64"],
+   "engines": ["v8", "node"],
+   "scripts": {
+   },
+   "directories": {
+   } 
+}
+

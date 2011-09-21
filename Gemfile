@@ -17,6 +17,9 @@ gem "haml-rails", "~>0.3.4"
 gem "jquery-rails"
 gem "kaminari", "~>0.12.4"
 
+gem 'therubyracer'
+gem 'ruby_parser'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

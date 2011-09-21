@@ -33,75 +33,7 @@ a, a:visited {
   color: #333355;
 }
 
-.comment_element  {
-  outline: 1px solid black;
-  margin: 25px;
-}
-
-.comment_element .header {
-  background-color: #6D9BF1;
-  padding: 5px 5px 10px 5px;
-}
-
-.comment_element .body {
-  padding: 5px;
-}
-
-.codeblock {
-  outline: 1px solid black;
-  margin: 25px;
-  overflow: auto;
-  font-family: monospace;
-}
-
-.codeblock .added_code {
-  background-color: #CCFFCC;
-  padding: 0px 5px;
-}
-
-.codeblock .removed_code {
-  background-color: #FFCCCC;
-  padding: 0px 5px;
-}
-
-.codeblock .unchanged_code {
-  background-color: #F8F8F8;
-  padding: 0px 5px;
-}
-
-.codeblock table.diff_summary {
-  width: 100%;
-}
-.codeblock table.diff_summary td {
-  padding: 0px;
-  margin: 0px;
-}
-
 li.hidden {
   display: none;
-}
-
-.closed_review {
-  background-color: #FFCCCC;
-}
-
-.approved_review {
-  background-color: #FFFFCC;
-}
-
-.open_review {
-  background-color: #CCFFCC;
-}
-
-.approve_vote {
-  background-color: #CCFFCC;
-}
-
-.no_opinion_vote {
-  background-color: #FFFFCC;
-}
-
-.reject_vote {
-  background-color: #FFCCCC;
 }
 

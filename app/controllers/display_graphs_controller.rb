@@ -1,6 +1,31 @@
 class DisplayGraphsController < ApplicationController
   load_and_authorize_resource
 
+  before_filter :check_show_permission, :only => [ :show, :interact ]
+  before_filter :check_edit_permission, :only => [ :edit, :display ]
+  before_filter :check_full_permission, :only => [ :destroy ]
+
+  def check_show_permission
+    @display_graph = DisplayGraph.find(params[:id])
+    if !@display_graph.has_permission?(current_user, "show")
+      redirect_to display_graphs_path, :notice => "You do not have enough permissions to view this page"
+    end
+  end
+
+  def check_edit_permission
+    @display_graph = DisplayGraph.find(params[:id])
+    if !@display_graph.has_permission?(current_user, "edit")
+      redirect_to display_graphs_path, :notice => "You do not have enough permissions to view this page"
+    end
+  end
+
+  def check_edit_permission
+    @display_graph = DisplayGraph.find(params[:id])
+    if !@display_graph.has_permission?(current_user, "full")
+      redirect_to display_graphs_path, :notice => "You do not have enough permissions to view this page"
+    end
+  end
+
   def index
     if current_user.has_role?(:admin)
       @display_graphs = DisplayGraph.all

@@ -4,7 +4,8 @@
   %tr
     %th Name
     %th User
-    %th display_graph
+    %th Graph 
+    %th
     %th
     %th
     %th
@@ -14,11 +15,14 @@
       %td= display_graph.name
       %td= display_graph.user.name
       %td= display_graph.graph.name
-      %td= link_to "Show", display_graph_path(display_graph)
-      %td= link_to "Interact", interact_display_graph_path(display_graph)
-      %td= link_to "Edit", edit_display_graph_path(display_graph)
-      %td= link_to "Edit Display", edit_display_graph_display_path(display_graph)
-      %td= link_to 'Destroy', display_graph, :confirm => 'Are you sure?', :method => :delete
+      - if display_graph.has_permission?(current_user, "show")
+        %td= link_to "Show", display_graph_path(display_graph)
+        %td= link_to "Interact", interact_display_graph_path(display_graph)
+      - if display_graph.has_permission?(current_user, "edit")
+        %td= link_to "Edit", edit_display_graph_path(display_graph)
+        %td= link_to "Edit Display", edit_display_graph_display_path(display_graph)
+      - if display_graph.has_permission?(current_user, "full")
+        %td= link_to 'Destroy', display_graph, :confirm => 'Are you sure?', :method => :delete
 
 = link_to "New Display Graph", new_display_graph_path
 

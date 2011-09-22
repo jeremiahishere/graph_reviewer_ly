@@ -1,0 +1,180 @@
+Graph Reviewer Ly
+
+Create, share, and organize graphs such as ERDs
+
+Basic user experiences
+
+Creating a graph
+- A logged in user has generated a dot file
+- Go to the create graph page
+- Give the graph a name and paste in the dot file
+- It automatically parses the dot files into nodes and connections
+- On the show page, the parsed data is shown
+
+Creating a display graph
+
+- Assumes the user has already entered a graph
+- Goes to the displaygraph page
+- Selects the graph from the dropdown
+ - Can only see the graphs that they put into the system
+- Gives the display graph a name
+- May select public
+  - If public, anyone can reach the page without any permissions set
+- Presses Submit
+- On the show page, it should show all the users who have explicit permissions
+  - The user should automatically have full permisisons
+  - In the future, other users could also have edit permissions or show permissions (if the display graph is not public)
+
+Adding tables to a display graph
+
+- Assumes the user has created the display graph and has gone back to the display graph index page
+- Click on the edit tables link for the display graph
+- Uses the partial based javascript fields for adder from dynamic fieldsets fields edit page
+  - There is a partial for tables that includes a dropdown for each table
+    - Tables that are already on the form are not included in the dropdown unless they are marked for deletion
+  - There is a partial for connections with a dropdown with each connection
+    - Connections that are on the form or do not have both tables included are not included in the dropdown
+    - When a table is removed, the associated connections should be removed as well
+
+Viewing the graph
+
+- The display graph has been created and tables added
+- User clicks on the 'interact' (or something less stupid) link to go to the paper page for the graph
+- loads a paper canvas with the graph on it
+  - nodes are rounded rectangles with the name and fields inside
+    - should be automatically sized to fit all the text
+  - connections are lines
+    - curvy?
+    - horizontal/vertical only?
+  - clicking and dragging on a node should move it
+  - zooming (optional)
+    - scrolling the mouse wheel on the canvasshould zoom everything in or out including text size
+    - scrolling the mouse wheel on a node should zoom it in or out
+    - if we do this, there needs to be another field on display_node called scale
+  - pathfinding (super optional)
+    - use the boids pathfinding from acts_as_audited_visualizer to automatically organize the graph
+    - nodes with connections should group
+    - nodes without connections should repel
+    - needs to be able to turn on and off
+- All this is saved through a nodejs connection that I don't really understand
+
+Sharing the graph
+
+- On each graph page, include two partials
+- show graph token link
+  - Click on a generate show token button to ajax to the token controller and get a token + url
+  - Put the url somewhere easy to copy and paste
+  - A user who visits the url before the token expires (24 hours) gets show permissions for the graph 
+    - this means they can go to the interact page but not the edit or tables pages
+- edit graph token link
+  - Click on a generate edit token button to ajax to the token controller and get a token + url
+  - Put the url somewhere easy to copy and paste
+  - A user who visits the url before the token expires (24 hours) gets edit permissions for the graph 
+    - this means they can go to the interact, edit, and tables pages
+- these links should only be shown to people who already have the permissions
+  - initially, only the display graph creator
+- may want to combine the partials and do it all through permissions
+  - two forms with two submit buttons, but a single place where the token url is put
+
+Visiting a share link
+
+- Given a link by somebody
+- Go to the link
+- It adds the correct permission to the correct graph
+  - unless the link is expired, then just boots you out to the homepage with an error message
+- redirects you to the interact page of the graph
+
+Planned table structure
+
+Backend tables
+
+Graph
+- name
+- raw_input
+
+Node
+- graph_id
+- name
+
+Field
+- node_id
+- name
+
+Connection
+- graph_id
+- start_node_id
+- end_node_id
+- start_connection
+- end_connection
+- line_type
+
+Frontend tables
+
+DisplayGraph
+- graph_id
+- name
+- user_id
+- public (boolean)
+
+DisplayNode
+- display_graph_id
+- node_id
+- x_pos
+- y_pos
+- scaling (optional, see mouse wheel section of interact page)
+
+DisplayConnection
+- display_graph_id
+- connection_id
+
+Permissions tables
+
+User
+- standard devise fields
+
+Role
+- name
+- for cancan roles
+- shoud be filled by seeds
+
+RolePermissions
+- user_id
+- role_id
+- user role join table
+
+ShareDisplayToken
+- display_graph_id
+- token
+- expiration_date
+- permission_level
+
+UserDisplayGraphPermission
+- user_id
+- display_graph_id
+- permission_level (show, edit, full)
+  - show only goes to interact page
+  - edit goes to edit and edit tables page
+  - full includes delete
+
+Stuff that is done
+- Creating all the models
+- Basic devise/cancan system
+
+Stuff that is partially done
+- Token system
+  - needs partials to generate tokens
+  - needs to be tested
+- Graph controller is missing views
+  - on each form, the user should not be a field, should be automatically set from current user in the controller
+- Display Graph conroller is missing almost all views
+  - on each form, the user should not be a field, should be automatically set from current user in the controller
+
+Stuff that needs to be done
+- display graph tables edit page
+- display graph interact page
+- permissions for links on the display graph index (edit vs full)
+- add the paper canvas to the interact page that does things
+- setup controller actions for the node server to hit to get graph information
+  - one for getting a graph by display id
+  - one for saving a graph by display id
+- pick a user experience and it is probably missing some features

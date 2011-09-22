@@ -12,6 +12,16 @@
 
 ActiveRecord::Schema.define(:version => 20110921231038) do
 
+  create_table "connections", :force => true do |t|
+    t.integer  "start_node_id"
+    t.integer  "end_node_id"
+    t.string   "start_type"
+    t.string   "end_type"
+    t.string   "line_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "fields", :force => true do |t|
     t.integer  "node_id"
     t.string   "name"

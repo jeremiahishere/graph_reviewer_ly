@@ -16,6 +16,10 @@ Editing the display for #{@display_graph.name}
       = link_to_add_fields("Add Display Connection", f, :display_connections)
   = f.buttons
 
+= link_to 'Show', @display_graph
+\|
+= link_to 'Back', display_graphs_path
+
 :javascript
   function remove_fields(link) {
     $(link).prev("input[type=hidden]").val("1");

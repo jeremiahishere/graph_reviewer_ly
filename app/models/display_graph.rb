@@ -4,6 +4,7 @@ class DisplayGraph < ActiveRecord::Base
 
   has_many :display_nodes
   has_many :display_connections
+  has_many :display_graph_permissions
 
   after_save :create_default_permission
 

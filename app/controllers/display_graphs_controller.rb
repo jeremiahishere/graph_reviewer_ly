@@ -13,8 +13,24 @@ class DisplayGraphsController < ApplicationController
     end
   end
 
+  def show
+    @display_graph = DisplayGraph.find(params[:id])
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def new
     @display_graph = DisplayGraph.new
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def edit 
+    @display_graph = DisplayGraph.find(params[:id])
 
     respond_to do |format|
       format.html
@@ -23,6 +39,7 @@ class DisplayGraphsController < ApplicationController
   
   def create
     @display_graph = DisplayGraph.new(params[:display_graph])
+    @display_graph.user = current_user
 
     respond_to do |format|
       if @display_graph.save
@@ -30,6 +47,27 @@ class DisplayGraphsController < ApplicationController
       else
         format.html { render :action => "new" }
       end
+    end
+  end
+
+  def update
+    @display_graph = DisplayGraph.find(params[:id])
+
+    respond_to do |format|
+      if @display_graph.update_attributes(params[:display_graph])
+        format.html { redirect_to(@display_graph, :notice => "Updated a display graph") }
+      else
+        format.html { render :action => "edit" }
+      end
+    end
+  end
+
+  def destroy
+    @display_graph = DisplayGraph.find(params[:id])
+    @display_graph.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(display_graphs_url) }
     end
   end
 end

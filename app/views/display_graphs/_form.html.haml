@@ -1,4 +1,7 @@
 = semantic_form_for @display_graph do |f|
   = f.semantic_errors
-  = f.inputs
+  = f.inputs do
+    = f.input :graph, :as => :select, :collection => Graph.by_user(current_user)
+    = f.input :name
+    = f.input :public
   = f.buttons

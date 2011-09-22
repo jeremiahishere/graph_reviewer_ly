@@ -5,3 +5,5 @@
       %li= link_to "Manage Users", users_path
     - if can? :read, Graph 
       %li= link_to "Manage Graphs", graphs_path 
+    - if can? :read, DisplayGraph 
+      %li= link_to "Manage Display Graphs", display_graphs_path 

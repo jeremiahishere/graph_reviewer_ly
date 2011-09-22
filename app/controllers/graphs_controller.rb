@@ -31,7 +31,15 @@ class GraphsController < ApplicationController
 
   def create
     @graph = Graph.new(params[:graph])
-    # finish me
+    @graph.user = current_user
+
+    respond_to do |format|
+      if @graph.save
+        format.html { redirect_to(@graph, :notice => "Create a graph") }
+      else
+        format.html { render :action => "new" }
+      end
+    end
   end
 
   def update

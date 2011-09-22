@@ -29,7 +29,7 @@ class Ability
     # basic user can't do anything yet
 
     if user.has_role?(:basic_user)
-      can :manage, [Graph, DisplayGraph]
+      can :manage, [Graph, DisplayGraph, DisplayGraphToken]
 
     end
 

@@ -29,10 +29,30 @@ ActiveRecord::Schema.define(:version => 20110922022007) do
     t.datetime "updated_at"
   end
 
+  create_table "display_graph_permissions", :force => true do |t|
+    t.integer  "display_graph_id"
+    t.integer  "user_id"
+    t.string   "permission_level"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "display_graph_tokens", :force => true do |t|
+    t.integer  "display_graph_id"
+    t.string   "token"
+    t.string   "permission_level"
+    t.datetime "expiration_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "display_graph_tokens", ["token"], :name => "index_display_graph_tokens_on_token", :unique => true
+
   create_table "display_graphs", :force => true do |t|
     t.integer  "graph_id"
+    t.integer  "user_id"
     t.string   "name"
-    t.string   "public"
+    t.boolean  "public"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -2,8 +2,9 @@ class CreateFrontendModels < ActiveRecord::Migration
   def change
     create_table :display_graphs do |t|
       t.integer :graph_id
+      t.integer :user_id
       t.string :name
-      t.string :public
+      t.boolean :public
 
       t.timestamps
     end

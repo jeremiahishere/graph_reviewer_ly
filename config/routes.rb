@@ -1,8 +1,12 @@
 GraphReviewerLy::Application.routes.draw do
   devise_for :users
-
-  resources :graphs
   resources :users
+  resources :graphs
+  resources :display_graphs
+
+  match "access_token/:token" => "tokens#process_token", :as => "process_access_token"
+  match "access_token/:display_graph_id/show", :to => "tokens#generate_show_token", :as => "generate_show_access_token"
+  match "access_token/:display_graph_id/edit", :to => "tokens#generate_edit_token", :as => "generate_edit_access_token"
 
   root :to => "pages#index"
 

@@ -23,11 +23,13 @@ class CreateBackendModels < ActiveRecord::Migration
     end
 
     create_table :connections do |t|
+      t.integer :graph_id
       t.integer :start_node_id
       t.integer :end_node_id
       t.string :start_type
       t.string :end_type
       t.string :line_type
+      t.string :weight
 
       t.timestamps
     end

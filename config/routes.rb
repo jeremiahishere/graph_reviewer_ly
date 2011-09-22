@@ -2,6 +2,7 @@ GraphReviewerLy::Application.routes.draw do
   devise_for :users
 
   resources :graphs
+  resources :users
 
   root :to => "pages#index"
 

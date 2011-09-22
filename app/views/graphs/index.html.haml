@@ -1,0 +1,22 @@
+%h1 Listing Graphs
+
+-#= paginate @review
+%table
+  %tr
+    %th Name
+    %th User
+    %th
+    %th
+    %th
+  - @graphs.each do |graph|
+    %tr
+      %td= graph.name
+      %td= graph.user.name
+      %td= link_to "Show", graph_path(graph)
+      %td= link_to "Edit", edit_graph_path(graph)
+      %td
+        - unless graph.in_use?
+          = link_to 'Destroy', graph, :confirm => 'Are you sure?', :method => :delete
+
+= link_to "New Graph", new_graph_path
+

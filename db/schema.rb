@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110921231038) do
+ActiveRecord::Schema.define(:version => 20110922022007) do
 
   create_table "connections", :force => true do |t|
     t.integer  "start_node_id"
@@ -18,6 +18,30 @@ ActiveRecord::Schema.define(:version => 20110921231038) do
     t.string   "start_type"
     t.string   "end_type"
     t.string   "line_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "display_connections", :force => true do |t|
+    t.integer  "display_graph_id"
+    t.integer  "connection_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "display_graphs", :force => true do |t|
+    t.integer  "graph_id"
+    t.string   "name"
+    t.string   "public"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "display_nodes", :force => true do |t|
+    t.integer  "display_graph_id"
+    t.integer  "node_id"
+    t.integer  "x_pos"
+    t.integer  "y_pos"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -32,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20110921231038) do
   create_table "graphs", :force => true do |t|
     t.string   "name"
     t.text     "raw_input"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -39,6 +64,13 @@ ActiveRecord::Schema.define(:version => 20110921231038) do
   create_table "nodes", :force => true do |t|
     t.integer  "graph_id"
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "role_assignments", :force => true do |t|
+    t.integer  "role_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

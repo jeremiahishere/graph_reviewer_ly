@@ -11,7 +11,7 @@ class CreateFrontendModels < ActiveRecord::Migration
     create_table :display_nodes do |t|
       t.integer :display_graph_id
       t.integer :node_id
-      t.integer, :x_pos
+      t.integer :x_pos
       t.integer :y_pos
 
       t.timestamps

@@ -28,6 +28,11 @@ class Ability
     user ||= User.new
     # basic user can't do anything yet
 
+    if user.has_role?(:basic_user)
+      can :manage, [Graph, DisplayGraph]
+
+    end
+
     if user.has_role?(:admin)
       # can see everything on the site
       # including user setup

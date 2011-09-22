@@ -3,6 +3,7 @@ class CreateBackendModels < ActiveRecord::Migration
     create_table :graphs do |t|
       t.string :name
       t.text :raw_input
+      t.integer :user_id
 
       t.timestamps
     end

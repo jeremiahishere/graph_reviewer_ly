@@ -7,9 +7,9 @@ GraphReviewerLy::Application.routes.draw do
   match "display_graphs/:id/update_display", :to => "display_graphs#update_display", :as => "update_display_graph_display", :method => :post
   match "interact/:id", :to => "display_graphs#interact", :as => "interact_display_graph"
 
-  match "access_token/:token" => "tokens#process_token", :as => "process_access_token"
-  match "access_token/:display_graph_id/show", :to => "tokens#generate_show_token", :as => "generate_show_access_token"
-  match "access_token/:display_graph_id/edit", :to => "tokens#generate_edit_token", :as => "generate_edit_access_token"
+  match "access_token/:token" => "display_graph_tokens#process_token", :as => "process_access_token"
+  match "access_token/:display_graph_id/show", :to => "display_graph_tokens#generate_show_token", :as => "generate_show_access_token"
+  match "access_token/:display_graph_id/edit", :to => "display_graph_tokens#generate_edit_token", :as => "generate_edit_access_token"
 
   root :to => "pages#index"
 

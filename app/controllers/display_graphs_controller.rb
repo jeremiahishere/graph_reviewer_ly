@@ -90,4 +90,12 @@ class DisplayGraphsController < ApplicationController
       end
     end
   end
+
+  def interact
+    @display_graph = DisplayGraph.find(params[:id])
+
+    respond_to do |format|
+      format.html
+    end
+  end
 end

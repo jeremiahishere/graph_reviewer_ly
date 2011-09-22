@@ -1,1 +1,2 @@
-= link_to "Create a new graph", new_graph_path
+- if user_signed_in?
+  = link_to "Create a new graph", new_graph_path

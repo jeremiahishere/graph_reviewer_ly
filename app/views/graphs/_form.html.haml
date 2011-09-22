@@ -1,5 +1,7 @@
 User should not be ediatble, it should be set in the controller
 = semantic_form_for @graph do |f|
   = f.semantic_errors
-  = f.inputs
+  = f.inputs do
+    = f.input :name, :input_html => { :size => 75 }
+    = f.input :raw_input, :as => :text, :input_html => { :rows => 10, :cols => 75 }
   = f.buttons

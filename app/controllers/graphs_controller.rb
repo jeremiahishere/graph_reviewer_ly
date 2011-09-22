@@ -13,6 +13,14 @@ class GraphsController < ApplicationController
     end
   end
 
+  def show
+    @graph = Graph.find(params[:id])
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def new
     @graph = Graph.new
 
@@ -35,7 +43,7 @@ class GraphsController < ApplicationController
 
     respond_to do |format|
       if @graph.save
-        format.html { redirect_to(@graph, :notice => "Create a graph") }
+        format.html { redirect_to(@graph, :notice => "Created a graph") }
       else
         format.html { render :action => "new" }
       end
@@ -43,8 +51,23 @@ class GraphsController < ApplicationController
   end
 
   def update
+    @graph = Graph.find(params[:id])
+
+    respond_to do |format|
+      if @graph.update_attributes(params[:graph])
+        format.html { redirect_to(@graph, :notice => "Updated a graph") }
+      else
+        format.html { render :action => "edit" }
+      end
+    end
   end
 
   def destroy
+    @graph = Graph.find(params[:id])
+    @graph.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(graphs_url) }
+    end
   end
 end

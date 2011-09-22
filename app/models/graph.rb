@@ -1,6 +1,7 @@
 class Graph < ActiveRecord::Base
   belongs_to :user
   has_many :nodes
+  has_many :connections
 
   has_many :display_graphs
 

@@ -1,0 +1,22 @@
+%p
+  %b Name:
+  = @graph.name
+%p
+  %b User:
+  = @graph.user.name
+- if @graph.nodes.count > 0
+  %p
+    %b Nodes
+    %ul
+      - @graph.nodes.each do |node|
+        %li= node.name
+- if @graph.connections.count > 0
+  %p
+    %b Connections
+    %ul
+      - @graph.connections.each do |connection|
+        %li= connection.name
+
+= link_to 'Edit', edit_graph_path(@project)
+\|
+= link_to 'Back', graphs_path

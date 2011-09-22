@@ -1,0 +1,30 @@
+Editing the display for #{@display_graph.name}
+
+= semantic_form_for @display_graph, :url => update_display_graph_display_path(@display_graph), :method => :post do |f|
+  = f.semantic_errors
+  = f.inputs do
+    .display_node_fields
+      - @display_graph.display_nodes.each do |display_node|
+        = f.fields_for :display_nodes, display_node do |display_node_form|
+          = render :partial => "display_node_fields", :locals => { :f => display_node_form }
+      = link_to_add_fields("Add Display Node", f, :display_nodes)
+
+    .display_connection_fields
+      - @display_graph.display_connections.each do |display_connection|
+        = f.fields_for :display_connections, display_connection do |display_connection_form|
+          = render :partial => "display_connection_fields", :locals => { :f => display_connection_form }
+      = link_to_add_fields("Add Display Connection", f, :display_connections)
+  = f.buttons
+
+:javascript
+  function remove_fields(link) {
+    $(link).prev("input[type=hidden]").val("1");
+    $(link).closest(".fields").hide();
+    $(link).parent().hide();
+  }
+
+  function add_fields(link, association, content) {
+    var new_id = new Date().getTime();
+    var regexp = new RegExp("new_" + association, "g");
+    $(link).parent().before(content.replace(regexp, new_id));
+  }

@@ -70,4 +70,24 @@ class DisplayGraphsController < ApplicationController
       format.html { redirect_to(display_graphs_url) }
     end
   end
+
+  def edit_display
+    @display_graph = DisplayGraph.find(params[:id])
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def update_display
+    @display_graph = DisplayGraph.find(params[:id])
+
+    respond_to do |format|
+      if @display_graph.update_attributes(params[:display_graph])
+        format.html { redirect_to(@display_graph, :notice => "Updated a display") }
+      else
+        format.html { render :action => "edit_display" }
+      end
+    end
+  end
 end

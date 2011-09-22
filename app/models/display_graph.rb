@@ -3,10 +3,14 @@ class DisplayGraph < ActiveRecord::Base
   belongs_to :user
 
   has_many :display_nodes
+  accepts_nested_attributes_for :display_nodes, :allow_destroy => true
   has_many :display_connections
+  accepts_nested_attributes_for :display_connections, :allow_destroy => true
+
   has_many :display_graph_permissions
 
   after_save :create_default_permission
+
 
   validates_presence_of :graph_id, :name
   validates_inclusion_of :public, :in => [true, false]

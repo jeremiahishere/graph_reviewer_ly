@@ -8,6 +8,7 @@
     %th
     %th
     %th
+    %th
   - @display_graphs.each do |display_graph|
     %tr
       %td= display_graph.name
@@ -15,6 +16,7 @@
       %td= display_graph.graph.name
       %td= link_to "Show", display_graph_path(display_graph)
       %td= link_to "Edit", edit_display_graph_path(display_graph)
+      %td= link_to "Edit Display", edit_display_graph_display_path(display_graph)
       %td= link_to 'Destroy', display_graph, :confirm => 'Are you sure?', :method => :delete
 
 = link_to "New Display Graph", new_display_graph_path

@@ -1,13 +1,14 @@
-= form_for @display_graph, :url => generate_show_access_token_path(@display_graph), :remote => true do |f|
-  = f.submit "Generate Show Key"
-= form_for @display_graph, :url => generate_edit_access_token_path(@display_graph), :remote => true do |f|
-  = f.submit "Generate Edit Key"
+- if @display_graph.has_permission?(current_user, "show")
+  = form_for @display_graph, :url => generate_show_access_token_path(@display_graph), :remote => true do |f|
+    = f.submit "Generate Show Key"
+- if @display_graph.has_permission?(current_user, "edit")
+  = form_for @display_graph, :url => generate_edit_access_token_path(@display_graph), :remote => true do |f|
+    = f.submit "Generate Edit Key"
 .token_url
 
 :javascript
   $(document).ready(function()  {
     $('form[id^=edit_display_graph]').bind("ajax:success", function(event, data) {
-      alert("hello");
       $('.token_url').html(data.url);
     });
   });

@@ -32,6 +32,6 @@ end
 group :development, :test do
   gem 'webrat'
   gem "rspec-rails"
-  #gem "ruby-debug"
+  gem "ruby-debug"
   #gem 'ruby-debug19', :require => 'ruby-debug'
 end

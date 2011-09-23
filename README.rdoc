@@ -107,6 +107,7 @@ Connection
 - start_connection
 - end_connection
 - line_type
+- weight (optional)
 
 Frontend tables
 
@@ -159,21 +160,15 @@ UserDisplayGraphPermission
 Stuff that is done
 - Creating all the models
 - Basic devise/cancan system
+- Token and permission systems
+- Graph and DisplayGraph controllers
 
 Stuff that is partially done
-- Token system
-  - needs partials to generate tokens
-  - needs to be tested
-- Graph controller is missing views
-  - on each form, the user should not be a field, should be automatically set from current user in the controller
-- Display Graph conroller is missing almost all views
-  - on each form, the user should not be a field, should be automatically set from current user in the controller
+- interact page
+  - has token creators
+  - add the paper canvas to the interact page that does things
 
 Stuff that needs to be done
-- display graph tables edit page
-- display graph interact page
-- permissions for links on the display graph index (edit vs full)
-- add the paper canvas to the interact page that does things
 - setup controller actions for the node server to hit to get graph information
   - one for getting a graph by display id
   - one for saving a graph by display id

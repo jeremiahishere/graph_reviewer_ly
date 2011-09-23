@@ -2,9 +2,10 @@
 :javascript
   graph_structure = {};
 
-Canvas goes here
-
 = render :partial => "/tokens/generate_token"
+
+<canvas id="display_graph_canvas" width="960" height="500">
+</canvas>
 
 :javascript
   $(document).ready(function()  {
@@ -39,3 +40,37 @@ Canvas goes here
     get_graph_structure();
     setTimeout(function(){ start_sending_updates()}, 2000);
   });
+
+:plain
+  <script type='text/paperscript' canvas='display_graph_canvas'>
+    var Graph = Base.extend({
+      initialize: function(graph_structure)  {
+      },
+      redraw: function()  {
+      },
+    });
+
+    var Node = Base.extend({
+      initialize: function()  {
+      },
+    });
+
+    var Connection = Base.extend({
+      initialize: function()  {
+      },
+    });
+
+    //setup the canvas
+    var background = new Path.Rectangle(view.bounds);
+    background.fillColor = 'black';
+
+    graph = new Graph(graph_structure);
+
+    function onFrame(event)  {
+      graph.redraw();
+    }
+
+    function onMouseDown(event)  {
+    }
+
+  </script>

@@ -139,7 +139,7 @@ class DisplayGraphsController < ApplicationController
     @display_graph = DisplayGraph.find(params[:id])
 
     respond_to do |format|
-      if @display_graph.update_positions(params[:data])
+      if @display_graph.update_positions(params[:graph_structure])
         format.json { render :json => { :status => "success" } }
       else
         format.json { render :json => { :status => "failure" } }

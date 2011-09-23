@@ -166,10 +166,9 @@ Stuff that is done
 Stuff that is partially done
 - interact page
   - has token creators
-  - add the paper canvas to the interact page that does things
+  - has basic ajax you can use to model the node interaction
+  - missing paper canvas
 
 Stuff that needs to be done
-- setup controller actions for the node server to hit to get graph information
-  - one for getting a graph by display id
-  - one for saving a graph by display id
 - pick a user experience and it is probably missing some features
+- add the paper canvas to the interact page that does things

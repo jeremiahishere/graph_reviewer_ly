@@ -1,3 +1,44 @@
+-# sets the graph structure variable so that is available to paper
+:javascript
+  graph_structure = {};
+
 Canvas goes here
 
 = render :partial => "/tokens/generate_token"
+
+:javascript
+  $(document).ready(function()  {
+    
+    function get_graph_structure()  {
+      $.ajax({
+        url: "#{get_display_graph_structure_path(@display_graph)}",
+        dataType: "json",
+        type: "GET",
+        success: function(data)  {
+          console.log(data);
+          graph_structure = data
+          console.log("data received");
+        }
+      });
+    }
+
+    function set_graph_structure()  {
+      $.ajax({
+        url: "#{set_display_graph_structure_path(@display_graph)}",
+        data: "graph_structure=" + JSON.stringify(graph_structure),
+        dataType: "json",
+        type: "POST",
+        success: function(data)  {
+          console.log("data sent")
+          //console.log(graph_structure);
+        }
+      });
+    }
+
+    function start_sending_updates() {
+      setInterval(function(){ set_graph_structure() }, 5000);
+    }
+
+    get_graph_structure();
+    setTimeout(function(){ start_sending_updates()}, 2000);
+  });

@@ -22,7 +22,7 @@ class DisplayNode < ActiveRecord::Base
       :id => self.id,
       :x_pos => self.x_pos,
       :y_pos => self.y_pos,
-      :scale -> self.scale,
+      :scale => self.scale,
       :name => self.node.name,
       :fields => field_data
     }

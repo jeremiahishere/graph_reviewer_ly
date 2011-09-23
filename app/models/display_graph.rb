@@ -70,15 +70,19 @@ class DisplayGraph < ActiveRecord::Base
 
     output[:connections] = []
     self.display_connections.each do |connection|
-      output[:connections.push(connection.to_json)
+      output[:connections].push(connection.to_json)
     end
     return output 
   end
 
   # only updating information on the nodes for now
   def update_positions(data)
-    data[:nodes].each do |data_node|
-      self.display_nodes.find(data_node[:id]).update_position(data_node)
+    # json doesn't seem to include empty arrays
+    if data[:nodes]
+      data[:nodes].each do |data_node|
+        self.display_nodes.find(data_node[:id]).update_position(data_node)
+      end
     end
+    return true
   end
 end

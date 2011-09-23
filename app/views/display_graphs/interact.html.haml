@@ -15,9 +15,7 @@ Canvas goes here
         dataType: "json",
         type: "GET",
         success: function(data)  {
-          console.log(data);
           graph_structure = data
-          console.log("data received");
         }
       });
     }
@@ -29,8 +27,7 @@ Canvas goes here
         dataType: "json",
         type: "POST",
         success: function(data)  {
-          console.log("data sent")
-          //console.log(graph_structure);
+          //not doing anything here for now
         }
       });
     }

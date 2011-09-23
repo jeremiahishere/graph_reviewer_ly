@@ -56,4 +56,29 @@ class DisplayGraph < ActiveRecord::Base
     end
     return false
   end
+
+  # converts the display graph to json so it can be passed through an ajax callback
+  def to_json
+    output = {}
+    output[:name] = self.name
+    output[:id] = self.id
+
+    output[:nodes] = []
+    self.display_nodes.each do |node|
+      output[:nodes].push(node.to_json)
+    end
+
+    output[:connections] = []
+    self.display_connections.each do |connection|
+      output[:connections.push(connection.to_json)
+    end
+    return output 
+  end
+
+  # only updating information on the nodes for now
+  def update_positions(data)
+    data[:nodes].each do |data_node|
+      self.display_nodes.find(data_node[:id]).update_position(data_node)
+    end
+  end
 end

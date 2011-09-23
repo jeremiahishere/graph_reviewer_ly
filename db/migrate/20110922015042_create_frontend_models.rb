@@ -14,6 +14,7 @@ class CreateFrontendModels < ActiveRecord::Migration
       t.integer :node_id
       t.integer :x_pos
       t.integer :y_pos
+      t.string :scale
 
       t.timestamps
     end

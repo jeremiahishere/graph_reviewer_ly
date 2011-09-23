@@ -3,9 +3,13 @@ GraphReviewerLy::Application.routes.draw do
   resources :users
   resources :graphs
   resources :display_graphs
+  
   match "display_graphs/:id/edit_display", :to => "display_graphs#edit_display", :as => "edit_display_graph_display"
   match "display_graphs/:id/update_display", :to => "display_graphs#update_display", :as => "update_display_graph_display", :method => :post
   match "interact/:id", :to => "display_graphs#interact", :as => "interact_display_graph"
+
+  match "display_graphs/:id/get", :to => "display_graphs#get_graph_structure", :as => "get_display_graph_structure"
+  match "display_graphs/:id/set", :to => "display_graphs#set_graph_structure", :as => "set_display_graph_structure"
 
   match "t/:token" => "display_graph_tokens#process_token", :as => "process_access_token"
   match "access_token/:display_graph_id/show", :to => "display_graph_tokens#generate_show_token", :as => "generate_show_access_token"

@@ -1,6 +1,6 @@
 -# sets the graph structure variable so that is available to paper
 :javascript
-  graph_structure = {};
+  graph_structure = #{@display_graph.to_json.to_json};
 
 = render :partial => "/tokens/generate_token"
 
@@ -37,27 +37,66 @@
       setInterval(function(){ set_graph_structure() }, 5000);
     }
 
-    get_graph_structure();
-    setTimeout(function(){ start_sending_updates()}, 2000);
+    //get_graph_structure();
+    //setTimeout(function(){ start_sending_updates()}, 2000);
   });
 
 :plain
   <script type='text/paperscript' canvas='display_graph_canvas'>
+    var hit_options = {
+      fill: true,
+      tolerance: 5,
+    }
+
     var Graph = Base.extend({
       name: "",
       id: 0,
       nodes: {},
-      connnections: {},
+      connections: {},
+      selected_node: null,
       initialize: function(graph_structure)  {
         this.name = graph_structure.name
         this.id = graph_structure.id
-        for(var node_attributes in graph_structure.nodes)  {
-          this.nodes[node_attributes.id] = new Node(graph, node_attributes)
+
+        for(var i = 0; i < graph_structure.nodes.length; i++)  {
+          node_attributes = graph_structure.nodes[i]
+          this.nodes[node_attributes.id] = new Node(this, node_attributes)
         }
-        for(var connection_attributes in graph_structure.connections)  {
-          this.connections[connection_attributes.id] = new Node(graph, connections_attributes)
+        for(var i = 0; i < graph_structure.connections.length; i++)  {
+          connection_attributes = graph_structure.connections[i]
+          this.connections[connection_attributes.id] = new Connection(this, connection_attributes)
         }
 
+        //I don't know why this doesn't work
+        //for(var node_attributes in graph_structure.nodes)  {
+        //  this.nodes[node_attributes.id] = new Node(this, node_attributes)
+        //}
+        //for(var connection_attributes in graph_structure.connections)  {
+        //  this.connections[connection_attributes.id] = new Node(this, connection_attributes)
+        //}
+
+      },
+      handle_mouse_down: function(event)  {
+        var hit_result = project.hitTest(event.point, hit_options);
+        if(hit_result.type == 'fill')  {
+          this.selected_path = hit_result.item
+          project.activeLayer.addChild(hit_result.item)
+        } else {
+          this.selected_path = null;
+        }
+      },
+      handle_mouse_move: function(event)  {
+        var hit_result = project.hitTest(event.point, hit_options);
+        project.activeLayer.selected = false;
+        if (hit_result && hit_result.item)  {
+          hit_result.item.selected = true;
+        }
+      },
+      handle_mouse_drag: function(event)  {
+        if(this.selected_path)  {
+          console.log(this.selected_path)
+          this.selected_path.update_position(event.delta)
+        }
       },
       redraw: function()  {
       },
@@ -66,8 +105,9 @@
     var Node = Base.extend({
       graph: null,
       id: 0,
-      x_pos: 0,
-      y_pos: 0,
+      position: null,
+      bounding_box: null,
+      text: null,
       scale: 0,
       name: "",
       fields: {},
@@ -75,13 +115,31 @@
         this.graph = graph
 
         this.id = attributes.id
-        this.x_pos = attributes.x_pos
-        this.y_pos = attributes.y_pos
         this.scale = attributes.scale
         this.name = attributes.name
         for(var field_attributes in attributes.fields)  {
           this.fields[field_attributes.id] = new Field(this.graph, field_attributes)
         }
+
+        this.position = new Point(attributes.x_pos, attributes.y_pos)
+        var rectangle_size = new Size(150, 200)
+        var rectangle = new Rectangle(this.position, rectangle_size)
+        var corner_size = new Size(10, 10)
+        this.bounding_box = new Path.RoundRectangle(rectangle, corner_size)
+        this.bounding_box.style = {
+          fillColor: "black",
+          strokeColor: "green",
+        }
+
+        this.text = new PointText(rectangle.center)
+        this.text.paragraphStyle.justification = 'center'
+        this.text.characterStyle.fontSize = 10 * this.scale
+        this.text.fillColor = 'green'
+        this.text.content = this.name
+      },
+      update_position: function(delta)  {
+        this.position += delta
+        this.text.position += delta
       },
     });
 
@@ -119,11 +177,14 @@
         this.line_type = attributes.line_type
         this.weight = attributes.weight
       },
+      update_position: function(delta)  {
+        //not sure why this is needed
+      },
     });
 
     //setup the canvas
-    var background = new Path.Rectangle(view.bounds);
-    background.fillColor = 'black';
+    //var background = new Path.Rectangle(view.bounds);
+    //background.fillColor = 'black';
 
     graph = new Graph(graph_structure);
 
@@ -132,6 +193,14 @@
     }
 
     function onMouseDown(event)  {
+      graph.handle_mouse_down(event)
     }
 
+    function onMouseMove(event)  {
+      graph.handle_mouse_move(event)
+    }
+
+    function onMouseDrag(event)  {
+      graph.handle_mouse_drag(event)
+    }
   </script>

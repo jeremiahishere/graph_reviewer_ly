@@ -25,6 +25,7 @@ class DisplayNode < ActiveRecord::Base
 
     {
       :id => self.id,
+      :name => name,
       :x_pos => self.x_pos,
       :y_pos => self.y_pos,
       :scale => self.scale,

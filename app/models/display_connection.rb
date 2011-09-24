@@ -12,6 +12,7 @@ class DisplayConnection < ActiveRecord::Base
   def to_json
     {
       :id => self.id,
+      :name => name,
       :start_node_id => self.connection.start_node.id,
       :end_node_id => self.connection.end_node.id,
       :start_type => self.connection.start_type,

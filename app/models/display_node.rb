@@ -22,7 +22,8 @@ class DisplayNode < ActiveRecord::Base
     self.node.fields.each do |field|
       field_data.push(field.to_json)
     end
-
+    # note that the id is a node id, not a displaynode id
+    # that may need to be changed in the future
     {
       :id => self.node.id,
       :name => name,

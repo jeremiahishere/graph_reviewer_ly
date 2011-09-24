@@ -11,25 +11,38 @@ class Graph < ActiveRecord::Base
 
   def process_raw_input
     parsed_graph = Cabbage.dotfile(self.raw_input)
+
     parsed_graph.nodes.each do |node_hash|
-      new_node = Node.new
-      new_node.name = node_hash[:name]
-      self.nodes << new_node
-      node_hash[:fields].each do |field|
-        new_node.fields << Field.new( :name => field[:name] ) # :type => field[:type]
+      node = Node.where(:graph_id => self.id, :name => node_hash[:name]).first
+      if node.nil?
+        node = Node.create(:graph_id => self.id, :name => node_hash[:name])
       end
-      new_node.save
+
+      node_hash[:fields].each do |field|
+        if Field.where(:node_id => node.id, :name => node_hash[:name]).count == 0
+          Field.create(:node_id => node.id, :name => field[:name] )
+        end
+      end
     end
+
     parsed_graph.connections.each do |connection|
-      new_connection = Connection.new
-      new_connection.graph_id = self.id
-      new_connection.start_node_id = Node.find_by_name(connection[:start_node]).id
-      new_connection.end_node_id = Node.find_by_name(connection[:end_node]).id
-      new_connection.start_type = connection[:arrowhead]
-      new_connection.end_type = connection[:arrowtail]
-      # new_connection.line_type = ??
-      new_connection.weight = connection[:weight]
-      new_connection.save
+      start_node = Node.find_by_name(connection[:start_node])
+      end_node = Node.find_by_name(connection[:end_node])
+
+      # naively assumes there is only one connection between each node
+      # doing this because I am lazy and it makes the coding easier
+      existing_connection = Connection.where(:graph_id => self.id, :start_node_id => start_node.id, :end_node_id => end_node.id).first
+      if existing_connection.nil?
+        new_connection = Connection.create(
+          :graph_id => self.id, 
+          :start_node_id => start_node,
+          :end_node_id => end_node,
+          :start_type => connection[:arrowhead],
+          :end_type => connection[:arrowtail],
+          :weight => connection[:weight],
+          :line_type => "" # no support yet
+        )
+      end
     end
   end
 

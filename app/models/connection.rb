@@ -4,4 +4,8 @@ class Connection < ActiveRecord::Base
   belongs_to :end_node, :class_name => "Node", :foreign_key => :end_node_id
 
   validates_presence_of :start_node_id, :end_node_id
+
+  def name
+    return self.start_node.name + " to " + self.end_node.name
+  end
 end

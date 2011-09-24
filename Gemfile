@@ -37,4 +37,6 @@ group :development, :test do
   gem "rspec-rails"
   gem "ruby-debug"
   #gem 'ruby-debug19', :require => 'ruby-debug'
+
+  gem "rails-erd" # for testing purposes
 end

@@ -9,7 +9,8 @@ class DisplayGraph < ActiveRecord::Base
 
   has_many :display_graph_permissions
 
-  after_save :create_default_permission
+  after_create :create_default_permission
+  after_create :add_all_the_things!
 
 
   validates_presence_of :graph_id, :name
@@ -23,6 +24,16 @@ class DisplayGraph < ActiveRecord::Base
       :user_id => self.user.id,
       :permission_level => "full"
     )
+  end
+
+  def add_all_the_things!
+    self.graph.nodes.each do |node|
+      self.display_nodes.push DisplayNode.new(:node => node, :display_graph => self)
+    end
+
+    self.graph.connections.each do |connection|
+      self.display_connections.push DisplayConnection.new(:connection => connection, :display_graph => self)
+    end
   end
 
   scope :public_display_graphs, lambda { where(:public => true) }

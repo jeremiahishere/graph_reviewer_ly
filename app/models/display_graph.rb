@@ -42,15 +42,15 @@ class DisplayGraph < ActiveRecord::Base
     if perm.nil?
       return false
     elsif perm_level == "show"
-      if self.public? || perm.permission_level == "show" || perm.permission_level == "edit" || perm.permission_level == "edit" 
+      if self.public? || perm.permission_level == "show" || perm.permission_level == "edit" || perm.permission_level == "full" 
         return true
       end
     elsif perm_level == "edit"
-      if perm.permission_level == "edit" || perm.permission_level == "edit" 
+      if perm.permission_level == "edit" || perm.permission_level == "full" 
         return true
       end
     elsif perm_level == "full"
-      if perm.permission_level == "edit" 
+      if perm.permission_level == "full" 
         return true
       end
     end

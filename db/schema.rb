@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20110922022007) do
     t.integer  "node_id"
     t.integer  "x_pos"
     t.integer  "y_pos"
+    t.string   "scale"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -44,19 +44,80 @@
 :plain
   <script type='text/paperscript' canvas='display_graph_canvas'>
     var Graph = Base.extend({
+      name: "",
+      id: 0,
+      nodes: {},
+      connnections: {},
       initialize: function(graph_structure)  {
+        this.name = graph_structure.name
+        this.id = graph_structure.id
+        for(var node_attributes in graph_structure.nodes)  {
+          this.nodes[node_attributes.id] = new Node(graph, node_attributes)
+        }
+        for(var connection_attributes in graph_structure.connections)  {
+          this.connections[connection_attributes.id] = new Node(graph, connections_attributes)
+        }
+
       },
       redraw: function()  {
       },
     });
 
     var Node = Base.extend({
-      initialize: function()  {
+      graph: null,
+      id: 0,
+      x_pos: 0,
+      y_pos: 0,
+      scale: 0,
+      name: "",
+      fields: {},
+      initialize: function(graph, attributes)  {
+        this.graph = graph
+
+        this.id = attributes.id
+        this.x_pos = attributes.x_pos
+        this.y_pos = attributes.y_pos
+        this.scale = attributes.scale
+        this.name = attributes.name
+        for(var field_attributes in attributes.fields)  {
+          this.fields[field_attributes.id] = new Field(this.graph, field_attributes)
+        }
+      },
+    });
+
+    var Field = Base.extend({
+      graph: null,
+      id: 0,
+      name: "",
+      initializer: function(graph, attributes)  {
+        this.graph = graph
+
+        this.id = attributes.id
+        this.name = attributes.name
       },
     });
 
     var Connection = Base.extend({
-      initialize: function()  {
+      graph: null,
+      id: 0,
+      start_node_id: 0,
+      end_node_id: 0,
+      //start_node: null,
+      //end_node: null,
+      start_type: "",
+      end_type: "",
+      line_type: "",
+      weight: "",
+      initialize: function(graph, attributes)  {
+        this.graph = graph
+
+        this.id = attributes.id
+        this.start_node_id = attributes.start_node_id
+        this.end_node_id = attributes.end_node_id
+        this.start_type = attributes.start_type
+        this.end_type = attributes.end_type
+        this.line_type = attributes.line_type
+        this.weight = attributes.weight
       },
     });
 

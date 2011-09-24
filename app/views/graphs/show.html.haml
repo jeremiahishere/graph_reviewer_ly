@@ -15,7 +15,7 @@
     %b Connections
     %ul
       - @graph.connections.each do |connection|
-        %li= connection.name
+        /%li= connection.name
 
 = link_to 'Edit', edit_graph_path(@project)
 \|

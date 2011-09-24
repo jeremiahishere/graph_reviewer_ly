@@ -20,6 +20,9 @@ gem "kaminari", "~>0.12.4"
 gem 'therubyracer'
 gem 'ruby_parser'
 
+# gem for dotfile parsing
+gem 'cabbage'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

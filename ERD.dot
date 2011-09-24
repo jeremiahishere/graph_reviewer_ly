@@ -1,0 +1,132 @@
+digraph GraphReviewerLy {
+  nodesep = "0.4"; pad = "0.4,0.4"; margin = "0,0"; concentrate = "true"; rankdir = "LR"; labelloc = "t"; fontsize = "13"; ranksep = "0.5"; fontname = "Arial Bold";
+  node [margin = "0.07,0.05", shape = "Mrecord", penwidth = "1.0", fontsize = "10", fontname = "Arial"];
+  edge [labelangle = "32", labeldistance = "1.8", dir = "both", penwidth = "1.0", fontsize = "7", arrowsize = "0.9", fontname = "Arial"];
+  label = "GraphReviewerLy domain model\n\n";
+  m_Connection [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Connection</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="end_node_id">end_node_id <font face="Arial Italic" color="grey60">integer ∗</font></td></tr>
+  <tr><td align="left" width="130" port="end_type">end_type <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="line_type">line_type <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="start_node_id">start_node_id <font face="Arial Italic" color="grey60">integer ∗</font></td></tr>
+  <tr><td align="left" width="130" port="start_type">start_type <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="weight">weight <font face="Arial Italic" color="grey60">string</font></td></tr>
+</table>
+>];
+  m_DisplayConnection [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">DisplayConnection</font></td></tr>
+</table>
+>];
+  m_DisplayGraph [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">DisplayGraph</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
+  <tr><td align="left" width="130" port="public">public <font face="Arial Italic" color="grey60">boolean</font></td></tr>
+</table>
+>];
+  m_DisplayGraphPermission [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">DisplayGraphPermission</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="permission_level">permission_level <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
+</table>
+>];
+  m_DisplayGraphToken [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">DisplayGraphToken</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="expiration_date">expiration_date <font face="Arial Italic" color="grey60">datetime ∗</font></td></tr>
+  <tr><td align="left" width="130" port="permission_level">permission_level <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
+  <tr><td align="left" width="130" port="token">token <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
+</table>
+>];
+  m_DisplayNode [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">DisplayNode</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="scale">scale <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="x_pos">x_pos <font face="Arial Italic" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="y_pos">y_pos <font face="Arial Italic" color="grey60">integer</font></td></tr>
+</table>
+>];
+  m_Field [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Field</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
+</table>
+>];
+  m_Graph [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Graph</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
+  <tr><td align="left" width="130" port="raw_input">raw_input <font face="Arial Italic" color="grey60">text ∗</font></td></tr>
+</table>
+>];
+  m_Node [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Node</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
+</table>
+>];
+  m_Role [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Role</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60">string</font></td></tr>
+</table>
+>];
+  m_RoleAssignment [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">RoleAssignment</font></td></tr>
+</table>
+>];
+  m_User [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">User</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="current_sign_in_at">current_sign_in_at <font face="Arial Italic" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="current_sign_in_ip">current_sign_in_ip <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="email">email <font face="Arial Italic" color="grey60">string ∗</font></td></tr>
+  <tr><td align="left" width="130" port="encrypted_password">encrypted_password <font face="Arial Italic" color="grey60">string (128) ∗</font></td></tr>
+  <tr><td align="left" width="130" port="last_sign_in_at">last_sign_in_at <font face="Arial Italic" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="last_sign_in_ip">last_sign_in_ip <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="remember_created_at">remember_created_at <font face="Arial Italic" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="reset_password_sent_at">reset_password_sent_at <font face="Arial Italic" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="reset_password_token">reset_password_token <font face="Arial Italic" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="sign_in_count">sign_in_count <font face="Arial Italic" color="grey60">integer</font></td></tr>
+</table>
+>];
+  m_User -> m_Role [arrowhead = "normal", weight = "2", arrowtail = "none", constraint = "false", style = "dotted"]
+  m_User -> m_RoleAssignment [arrowhead = "normal", weight = "2", arrowtail = "none"]
+  m_DisplayGraph -> m_DisplayGraphToken [arrowhead = "normal", weight = "1", arrowtail = "none"]
+  m_DisplayGraph -> m_DisplayGraphPermission [arrowhead = "normal", weight = "2", arrowtail = "none"]
+  m_Graph -> m_DisplayGraph [arrowhead = "normal", weight = "2", arrowtail = "none"]
+  m_User -> m_DisplayGraph [arrowhead = "normal", weight = "1", arrowtail = "none"]
+  m_DisplayGraph -> m_DisplayNode [arrowhead = "normal", weight = "2", arrowtail = "none"]
+  m_DisplayGraph -> m_DisplayConnection [arrowhead = "normal", weight = "2", arrowtail = "none"]
+  m_User -> m_Graph [arrowhead = "normal", weight = "1", arrowtail = "none"]
+  m_Graph -> m_Connection [arrowhead = "normal", weight = "2", arrowtail = "none"]
+  m_Graph -> m_Node [arrowhead = "normal", weight = "2", arrowtail = "none"]
+  m_Node -> m_Connection [arrowhead = "normal", weight = "2", arrowtail = "none"]
+  m_Node -> m_Connection [arrowhead = "normal", weight = "2", arrowtail = "none"]
+  m_Connection -> m_DisplayConnection [arrowhead = "normal", weight = "1", arrowtail = "none"]
+  m_User -> m_DisplayGraphPermission [arrowhead = "normal", weight = "1", arrowtail = "none"]
+  m_Node -> m_DisplayNode [arrowhead = "normal", weight = "1", arrowtail = "none"]
+  m_Node -> m_Field [arrowhead = "normal", weight = "2", arrowtail = "none"]
+  m_Role -> m_RoleAssignment [arrowhead = "normal", weight = "2", arrowtail = "none"]
+}

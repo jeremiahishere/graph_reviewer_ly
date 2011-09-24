@@ -4,6 +4,11 @@ class DisplayConnection < ActiveRecord::Base
 
   validates_presence_of :display_graph_id, :connection_id
 
+  # maybe could include the display graph name in the future
+  def name
+    self.connection.name
+  end
+
   def to_json
     {
       :id => self.id,

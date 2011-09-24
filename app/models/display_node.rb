@@ -12,6 +12,11 @@ class DisplayNode < ActiveRecord::Base
     self.scale = 1 unless self.scale
   end
 
+  # maybe could include the display graph name in the future
+  def name
+    self.node.name
+  end
+
   def to_json
     field_data = []
     self.node.fields.each do |field|

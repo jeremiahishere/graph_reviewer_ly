@@ -17,6 +17,22 @@
       %tr
         %td= perm.user.name
         %td= perm.permission_level
+  %hr
+
+- if @display_graph.display_nodes.count > 0
+  %p
+    %h4 Nodes
+    %ul
+      - @display_graph.display_nodes.each do |node|
+        %li= node.name
+    %hr
+- if @display_graph.display_connections.count > 0
+  %p
+    %h4 Connections
+    %ul
+      - @display_graph.display_connections.each do |connection|
+        %li= connection.name
+    %hr
 
 = link_to 'Edit', edit_display_graph_path(@display_graph)
 \|

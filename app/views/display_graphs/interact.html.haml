@@ -67,6 +67,9 @@
           this.connections[connection_attributes.id] = new Connection(this, connection_attributes)
         }
       },
+      find_node_by_id: function(id)  {
+        return this.nodes[id]
+      },
       handle_mouse_down: function(event)  {
         var hit_result = project.hitTest(event.point, hit_options);
         this.selected_path = null;
@@ -91,6 +94,12 @@
         }
       },
       redraw: function()  {
+        for(var key in this.nodes)  {
+          this.nodes[key].redraw()
+        }
+        for(var key in this.connections)  {
+          this.connections[key].redraw()
+        }
       },
     });
 
@@ -124,17 +133,23 @@
           strokeColor: "green",
         }
 
-        this.text = new PointText(this.bounding_box.center)
+        this.text = new PointText(this.center)
         this.text.paragraphStyle.justification = 'center'
         this.text.characterStyle.fontSize = 10 * this.scale
         this.text.fillColor = 'green'
         this.text.content = this.name
       },
+      center: function()  {
+        return this.position
+      },
       update_position: function(delta)  {
         this.position += delta
-        this.bounding_box.position = this.position
-        this.rounded_rect.position = this.bounding_box.position
+        this.bounding_box.point = this.position
+        this.rounded_rect.position = this.bounding_box.point
         this.text.position = this.position
+      },
+      redraw: function()  {
+        //this currently does not animate
       },
     });
 
@@ -153,14 +168,15 @@
     var Connection = Base.extend({
       graph: null,
       id: 0,
+      //instead of storing ids, we could just store a full link to the node
+      //possibly save some processing time
       start_node_id: 0,
       end_node_id: 0,
-      //start_node: null,
-      //end_node: null,
       start_type: "",
       end_type: "",
       line_type: "",
       weight: "",
+      path: null,
       initialize: function(graph, attributes)  {
         this.graph = graph
 
@@ -171,9 +187,32 @@
         this.end_type = attributes.end_type
         this.line_type = attributes.line_type
         this.weight = attributes.weight
+
+        this.create_or_update_path()
       },
-      update_position: function(delta)  {
-        //not sure why this is needed
+      //checks if both nodes exist, then sets the connection to their location
+      create_or_update_path: function()  {
+        //if it exists, assume everything is fine
+        if(this.path)  {
+          this.path.segments[0].point = this.graph.find_node_by_id(this.start_node_id).center()
+          this.path.segments[1].point = this.graph.find_node_by_id(this.end_node_id).center()
+        } else {
+          var start_node = this.graph.find_node_by_id(this.start_node_id)
+          var end_node = this.graph.find_node_by_id(this.end_node_id)
+          if(start_node && end_node)  {
+            this.path = new Path()
+            this.path.add(start_node.center())
+            this.path.add(end_node.center())
+            this.path.style = {
+              strokeColor: "green",
+              strokeWidth: 1, //no support for weight yet
+              //no support for line type yet
+            }
+          }
+        }
+      },
+      redraw: function()  {
+        this.create_or_update_path()
       },
     });
 

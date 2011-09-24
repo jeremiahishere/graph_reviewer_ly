@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   has_many :role_assignments
   has_many :roles, :through => :role_assignments
+  attr_accessible :role_ids
 
   def name
     self.email

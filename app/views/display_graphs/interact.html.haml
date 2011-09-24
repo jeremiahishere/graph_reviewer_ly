@@ -66,23 +66,16 @@
           connection_attributes = graph_structure.connections[i]
           this.connections[connection_attributes.id] = new Connection(this, connection_attributes)
         }
-
-        //I don't know why this doesn't work
-        //for(var node_attributes in graph_structure.nodes)  {
-        //  this.nodes[node_attributes.id] = new Node(this, node_attributes)
-        //}
-        //for(var connection_attributes in graph_structure.connections)  {
-        //  this.connections[connection_attributes.id] = new Node(this, connection_attributes)
-        //}
-
       },
       handle_mouse_down: function(event)  {
         var hit_result = project.hitTest(event.point, hit_options);
-        if(hit_result.type == 'fill')  {
-          this.selected_path = hit_result.item
-          project.activeLayer.addChild(hit_result.item)
-        } else {
-          this.selected_path = null;
+        this.selected_path = null;
+        if(hit_result && hit_result.type == 'fill')  {
+          for(var key in this.nodes)  {
+            if(this.nodes[key].rounded_rect == hit_result.item)  {
+              this.selected_path = this.nodes[key] 
+            }
+          }
         }
       },
       handle_mouse_move: function(event)  {
@@ -94,7 +87,6 @@
       },
       handle_mouse_drag: function(event)  {
         if(this.selected_path)  {
-          console.log(this.selected_path)
           this.selected_path.update_position(event.delta)
         }
       },
@@ -107,6 +99,7 @@
       id: 0,
       position: null,
       bounding_box: null,
+      rounded_rect: null,
       text: null,
       scale: 0,
       name: "",
@@ -122,16 +115,16 @@
         }
 
         this.position = new Point(attributes.x_pos, attributes.y_pos)
-        var rectangle_size = new Size(150, 200)
-        var rectangle = new Rectangle(this.position, rectangle_size)
+        var rectangle_size = new Size(200, 150)
+        this.bounding_box = new Rectangle(this.position, rectangle_size)
         var corner_size = new Size(10, 10)
-        this.bounding_box = new Path.RoundRectangle(rectangle, corner_size)
-        this.bounding_box.style = {
+        this.rounded_rect = new Path.RoundRectangle(this.bounding_box, corner_size)
+        this.rounded_rect.style = {
           fillColor: "black",
           strokeColor: "green",
         }
 
-        this.text = new PointText(rectangle.center)
+        this.text = new PointText(this.bounding_box.center)
         this.text.paragraphStyle.justification = 'center'
         this.text.characterStyle.fontSize = 10 * this.scale
         this.text.fillColor = 'green'
@@ -139,7 +132,9 @@
       },
       update_position: function(delta)  {
         this.position += delta
-        this.text.position += delta
+        this.bounding_box.position = this.position
+        this.rounded_rect.position = this.bounding_box.position
+        this.text.position = this.position
       },
     });
 
@@ -183,8 +178,8 @@
     });
 
     //setup the canvas
-    //var background = new Path.Rectangle(view.bounds);
-    //background.fillColor = 'black';
+    var background = new Path.Rectangle(view.bounds);
+    background.fillColor = 'black';
 
     graph = new Graph(graph_structure);
 

@@ -24,7 +24,7 @@ class DisplayNode < ActiveRecord::Base
     end
 
     {
-      :id => self.id,
+      :id => self.node.id,
       :name => name,
       :x_pos => self.x_pos,
       :y_pos => self.y_pos,

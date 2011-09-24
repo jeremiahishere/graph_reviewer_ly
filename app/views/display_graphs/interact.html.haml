@@ -124,7 +124,7 @@
         }
 
         this.position = new Point(attributes.x_pos, attributes.y_pos)
-        var rectangle_size = new Size(200, 150)
+        var rectangle_size = new Size(200, 40)
         this.bounding_box = new Rectangle(this.position, rectangle_size)
         var corner_size = new Size(10, 10)
         this.rounded_rect = new Path.RoundRectangle(this.bounding_box, corner_size)
@@ -200,6 +200,7 @@
           var start_node = this.graph.find_node_by_id(this.start_node_id)
           var end_node = this.graph.find_node_by_id(this.end_node_id)
           if(start_node && end_node)  {
+            console.log("creating")
             this.path = new Path()
             this.path.add(start_node.center())
             this.path.add(end_node.center())

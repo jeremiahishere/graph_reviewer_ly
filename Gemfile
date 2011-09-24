@@ -21,7 +21,7 @@ gem 'therubyracer'
 gem 'ruby_parser'
 
 # gem for dotfile parsing
-gem 'cabbage'
+gem 'cabbage', "~>0.1.3"
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -26,8 +26,9 @@ class Graph < ActiveRecord::Base
     end
 
     parsed_graph.connections.each do |connection|
-      start_node = Node.find_by_name(connection[:start_node])
-      end_node = Node.find_by_name(connection[:end_node])
+      puts connection.inspect
+      start_node = Node.where(:graph_id => self.id, :name => connection[:start_node]).first
+      end_node = Node.where(:graph_id => self.id, :name => connection[:end_node]).first
 
       # naively assumes there is only one connection between each node
       # doing this because I am lazy and it makes the coding easier
@@ -35,8 +36,8 @@ class Graph < ActiveRecord::Base
       if existing_connection.nil?
         new_connection = Connection.create(
           :graph_id => self.id, 
-          :start_node_id => start_node,
-          :end_node_id => end_node,
+          :start_node_id => start_node.id,
+          :end_node_id => end_node.id,
           :start_type => connection[:arrowhead],
           :end_type => connection[:arrowtail],
           :weight => connection[:weight],

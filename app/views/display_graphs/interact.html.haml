@@ -1,6 +1,7 @@
 -# sets the graph structure variable so that is available to paper
 :javascript
-  graph_structure = #{@display_graph.to_json.to_json};
+  initial_graph_structure = #{@display_graph.to_json.to_json};
+  graph_structure_changes = {}
 
 = render :partial => "/tokens/generate_token"
 
@@ -101,6 +102,15 @@
           this.connections[key].redraw()
         }
       },
+      get_changes: function()  {
+        var changes = {}
+        for(var key in this.nodes)  {
+          if(this.nodes[key].changed)  {
+            changes[key] = this.nodes[key].get_changes()
+          }
+        }
+        return changes
+      },
     });
 
     var Node = Base.extend({
@@ -145,12 +155,15 @@
       },
       update_position: function(delta)  {
         this.position += delta
+        this.update_parts()
+        this.changed = true
+      },
+      update_parts: function()  {
         this.bounding_box.point = this.position
         this.rounded_rect.position = this.bounding_box.point
         this.text.position = this.position
-
-        this.changed = true
       },
+      //when you get the changes, set changed to false
       get_changes: function()  {
         if(this.changed)  {
           this.changed = false
@@ -162,8 +175,17 @@
           return changes
         }
       },
+      //if not changed, and there are updated in the changes object
+      //the change the position and scale to the given position and scale
       redraw: function()  {
-        //this currently does not animate
+        if(!this.changed && graph_structure_changes.hasOwnProperty(this.id))  {
+          changed_node = graph_structure_changes[this.id]
+          if(changed_node)  {
+            this.position.x = changed_node.x_pos
+            this.position.y = changed_node.y_pos
+            this.scale = changed_node.scale
+          }
+        }
       },
     });
 
@@ -234,10 +256,23 @@
     var background = new Path.Rectangle(view.bounds);
     background.fillColor = 'black';
 
-    graph = new Graph(graph_structure);
+    graph = new Graph(initial_graph_structure);
 
     function onFrame(event)  {
       graph.redraw();
+      graph_structure_changes = graph.get_changes()
+
+      // get the size of the changes
+      // seems sort of silly
+      var count = 0;
+      for (var p in graph_structure_changes) {
+        if (graph_structure_changes.hasOwnProperty(p)) {
+          count++;
+        }
+      }
+      if(count > 0)  {
+        console.log(graph_structure_changes)
+      }
     }
 
     function onMouseDown(event)  {

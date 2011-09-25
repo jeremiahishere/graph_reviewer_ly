@@ -112,6 +112,7 @@
       text: null,
       scale: 0,
       name: "",
+      changed: false,
       fields: {},
       initialize: function(graph, attributes)  {
         this.graph = graph
@@ -147,6 +148,19 @@
         this.bounding_box.point = this.position
         this.rounded_rect.position = this.bounding_box.point
         this.text.position = this.position
+
+        this.changed = true
+      },
+      get_changes: function()  {
+        if(this.changed)  {
+          this.changed = false
+          var changes = {
+            x_pos: this.position.x,
+            y_pos: this.position.y,
+            scale: this.scale,
+          }
+          return changes
+        }
       },
       redraw: function()  {
         //this currently does not animate

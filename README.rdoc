@@ -9,6 +9,7 @@ Stuff that is done
 - Token and permission systems
 - Graph and DisplayGraph controllers
 - Basic paper.js canvas for the interact page
+- Basic collaboration through the node server
 
 ===========================
 Stuff that needs to be done
@@ -22,8 +23,8 @@ Stuff that needs to be done
   - auto resize the nodes based on the size of the text
   - include fields in the node display
   - all ajax/node data moving
+    - building a list of changes from the user updates
     - saving data to the db from the interact page
-    - multiple users interacting with each other
 - randomize display node locations on create
 
 =============================

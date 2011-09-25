@@ -21,8 +21,6 @@
 
   socket.on('structure_changes', function(data)  {
     graph_structure_changes = data.changes
-    //console.log("received changes")
-    //console.log(graph_structure_changes)
   });
 
 = render :partial => "/tokens/generate_token"

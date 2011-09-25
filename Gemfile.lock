@@ -182,7 +182,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  cabbage
+  cabbage (~> 0.1.3)
   cancan (~> 1.6.5)
   capistrano
   capistrano-ext (~> 1.2.1)

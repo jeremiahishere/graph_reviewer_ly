@@ -1,46 +1,39 @@
+-# this probably goes into assets somewhere
+<script src="http://dev.graphreviewer.ly:8080/socket.io/socket.io.js"></script>
+
 -# sets the graph structure variable so that is available to paper
 :javascript
-  initial_graph_structure = #{@display_graph.to_json.to_json};
-  graph_structure_changes = {}
+  var initial_graph_structure = #{@display_graph.to_json.to_json};
+  var graph_structure_changes = {}
+  var socket_id = 0
+  var display_graph_id = #{@display_graph.id}
+
+  var socket = io.connect('http://dev.graphreviewer.ly:8080', { display_graph_id: display_graph_id })
+  socket.on('init_data', function(data)  {
+    socket_id = data.my_id
+    socket.emit('register_user', {
+      socket_id: socket_id,
+      display_graph_id: display_graph_id
+
+    });
+  });
+
+  function send_changes_to_server(structure_changes)  {
+    var output = { socket_id: socket_id, display_graph_id: display_graph_id, changes: structure_changes }
+    //console.log(output)
+    socket.emit('structure_changes', output)
+  }
+
+  socket.on('structure_changes', function(data)  {
+    console.log("received changes")
+    console.log(data)
+  });
+
 
 = render :partial => "/tokens/generate_token"
 
 <canvas id="display_graph_canvas" width="960" height="500">
 </canvas>
-
-:javascript
-  $(document).ready(function()  {
-    
-    function get_graph_structure()  {
-      $.ajax({
-        url: "#{get_display_graph_structure_path(@display_graph)}",
-        dataType: "json",
-        type: "GET",
-        success: function(data)  {
-          graph_structure = data
-        }
-      });
-    }
-
-    function set_graph_structure()  {
-      $.ajax({
-        url: "#{set_display_graph_structure_path(@display_graph)}",
-        data: "graph_structure=" + JSON.stringify(graph_structure),
-        dataType: "json",
-        type: "POST",
-        success: function(data)  {
-          //not doing anything here for now
-        }
-      });
-    }
-
-    function start_sending_updates() {
-      setInterval(function(){ set_graph_structure() }, 5000);
-    }
-
-    //get_graph_structure();
-    //setTimeout(function(){ start_sending_updates()}, 2000);
-  });
 
 :plain
   <script type='text/paperscript' canvas='display_graph_canvas'>
@@ -271,7 +264,7 @@
         }
       }
       if(count > 0)  {
-        console.log(graph_structure_changes)
+        send_changes_to_server(graph_structure_changes)
       }
     }
 

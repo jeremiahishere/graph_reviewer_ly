@@ -1,41 +1,40 @@
 var io = require('socket.io').listen(8080)
 
+var users = {}
+
 io.sockets.on('connection', function(socket) {
   socket.emit('init_data', { 
     my_id: socket.id, 
   })
 
   socket.on('register_user', function(data)  {
-    //this should add a user to the user list
-    //by socket id and display graph id
-
-    console.log("user registered")
-    console.log(data)
+    display_graph_id = data.display_graph_id
+    if(!users.hasOwnProperty(display_graph_id))  {
+      users[display_graph_id] = new Array()
+    }
+    users[display_graph_id].push(socket)
   })
 
   socket.on('structure_changes', function(data)  {
-    //this only theoretically works at the most basic possible level
-    /*for(var id in users)  {
-      if(users[id].display_graph_id == data.display_graph_id)  {
-        users[id].socket.emit('structure_changes', data)
+    display_graph_id = data.display_graph_id
+    for(var i = 0; i < users[display_graph_id].length; i++)  {
+      //probably don't want to send the update to yourself
+      if(users[display_graph_id][i] != socket)  {
+        users[display_graph_id][i].emit('structure_changes', data)
       }
-    }*/
-    console.log("structure change from user")
-    console.log(data)
+    }
   })
-
-  /*socket.on('keystroke', function(keystroke) {
-    // do stuff in response to keystrokes
-  })*/
 
   socket.on('disconnect', function(){
-    // handle disconnections, remove users, etc
+    //remove the user from all display graphs
+    //hopefully only on one
+    for(var display_graph_id in users)  {
+      for(var i = 0; i < users[display_graph_id].length; i++)  {
+        if(users[display_graph_id][i] == socket)  {
+          //delete the record, then update the array
+          users[display_graph_id].splice(i, 1)
+        }
+      }
+    }
   })
-
-  /*socket.on('update_position', function(movement) {
-    // movement.x
-    // movement.y
-    // movement.object_id
-    console.log(movement)
-  })*/
 })

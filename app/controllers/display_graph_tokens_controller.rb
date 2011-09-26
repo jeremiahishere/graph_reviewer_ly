@@ -24,9 +24,7 @@ class DisplayGraphTokensController < ApplicationController
   def process_token
     @token = DisplayGraphToken.find_by_token(params[:token])
     unless @token.expired?
-      perm = DisplayGraphPermission.find_or_create_by_user_id_and_display_graph_id(
-        :user => current_user, 
-        :display_graph => @token.display_graph)
+      perm = DisplayGraphPermission.find_or_create_by_user_id_and_display_graph_id(current_user.id, @token.display_graph.id)
       perm.permission_level = @token.permission_level
       perm.save
     end

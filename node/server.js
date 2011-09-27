@@ -1,5 +1,10 @@
 var io = require('socket.io').listen(8080)
 
+//setup db
+//this is scary because this should really be reading from 
+//the database.yml file and figuring out what the db is
+//
+//Is there a yaml reader in node?
 var mysql = require('mysql')
 var rails_env = "development" //this is scary
 var db = "graph_reviewer_ly_" + rails_env
@@ -18,8 +23,10 @@ function write_graph_structures()  {
       //this is a bit of a hack because the display node id is not currently being sent to the node server
       update_sql += " where node_id = " + node_id + " and display_graph_id = " + display_graph_id
       client.query(update_sql)
-      console.log(update_sql)
+      //console.log(update_sql)
     }
+    //removes all changes
+    //new users should pull the correct data from the database
     graph_structures[display_graph_id] = {}
   }
 }

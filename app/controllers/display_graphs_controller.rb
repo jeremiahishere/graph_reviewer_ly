@@ -120,30 +120,7 @@ class DisplayGraphsController < ApplicationController
     @display_graph = DisplayGraph.find(params[:id])
 
     respond_to do |format|
-      format.html
-    end
-  end
-
-  # gets the full graph structure through in a json object
-  def get_graph_structure
-    @display_graph = DisplayGraph.find(params[:id])
-    
-    respond_to do |format|
-      format.json { render :json => @display_graph.to_json }
-    end
-  end
-
-  # sets position information about the nodes and connections of the graph
-  # does not add or remove nodes (for now)
-  def set_graph_structure
-    @display_graph = DisplayGraph.find(params[:id])
-
-    respond_to do |format|
-      if @display_graph.update_positions(params[:graph_structure])
-        format.json { render :json => { :status => "success" } }
-      else
-        format.json { render :json => { :status => "failure" } }
-      end
+      format.html { render :layout => "full_screen" }
     end
   end
 end

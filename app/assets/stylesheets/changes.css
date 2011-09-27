@@ -1,4 +1,4 @@
-body {
+body.application {
   background-color: #C1F0F6;  
 }
 
@@ -37,3 +37,10 @@ li.hidden {
   display: none;
 }
 
+.generate_token_container {
+  float: left;
+}
+
+.cb {
+  clear: both;
+}

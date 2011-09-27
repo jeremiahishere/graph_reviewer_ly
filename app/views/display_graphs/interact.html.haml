@@ -38,7 +38,9 @@
     var Graph = Base.extend({
       name: "",
       id: 0,
+      // need to change this into a group object
       nodes: {},
+      // need to change this into a group object
       connections: {},
       selected_node: null,
       initialize: function(graph_structure)  {
@@ -80,6 +82,17 @@
           this.selected_path.update_position(event.delta)
         }
       },
+      handle_mouse_wheel: function(point, scale_amount)  {
+        var hit_result = project.hitTest(point, hit_options);
+        this.selected_path = null;
+        if(hit_result && hit_result.type == 'fill')  {
+          for(var key in this.nodes)  {
+            if(this.nodes[key].rounded_rect == hit_result.item)  {
+              this.nodes[key].update_scale(scale_amount)
+            }
+          }
+        }
+      },
       redraw: function()  {
         for(var key in this.nodes)  {
           this.nodes[key].redraw()
@@ -114,7 +127,7 @@
         this.graph = graph
 
         this.id = attributes.id
-        this.scale = attributes.scale
+        this.scale = parseFloat(attributes.scale)
         this.name = attributes.name
         for(var field_attributes in attributes.fields)  {
           this.fields[field_attributes.id] = new Field(this.graph, field_attributes)
@@ -152,6 +165,13 @@
         this.bounding_box.point = this.position
         this.rounded_rect.position = this.bounding_box.point
         this.text.position = this.position
+      },
+      update_scale: function(amount)  {
+        this.scale -= 0.001 * amount
+        console.log(this.scale)
+        //this is close
+        this.rounded_rect.scale(amount)
+        this.text.characterStyle.fontSize = 10 * this.scale
       },
       //when you get the changes, set changed to false
       get_changes: function()  {
@@ -277,4 +297,12 @@
     function onMouseDrag(event)  {
       graph.handle_mouse_drag(event)
     }
+
+    /*view.canvas.addEventListener('mousewheel', function(event)  {
+      graph.handle_mouse_wheel(new Point(event.pageX, event.pageY), event.detail)
+    }, false)*/
+    view.canvas.addEventListener('DOMMouseScroll', function(event)  {
+      graph.handle_mouse_wheel(new Point(event.pageX, event.pageY), event.detail)
+    }, false)
+
   </script>

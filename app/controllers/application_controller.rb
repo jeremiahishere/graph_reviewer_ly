@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   # on a cancan error, redirect to root if the user is logged in
   # if there is no user logged in, save the url and redirect to the login page
   rescue_from CanCan::AccessDenied do |exception|
-    if !current_user
+    if !current_user && request.request_uri
       session[:url_on_missing_user_session] = request.request_uri
       redirect_to new_user_session_path, :alert => exception.message
     else

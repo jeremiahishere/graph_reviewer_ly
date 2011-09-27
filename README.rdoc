@@ -12,20 +12,27 @@ Stuff that is done
 - Basic collaboration through the node server
 
 ===========================
+High Priority Stuff
+
+- fields on the nodes
+  - it will help to move to a monospaced font
+- arrows on the lines
+  - orthogonal lines?
+- resize the background on update
+- randomize display node locations on create
+
+===========================
 Stuff that needs to be done
 - pick a user experience and it is probably missing some features
 - user interface is pretty clunky
 - need to take a look at id vs display ids for display nodes and display connections on the front end
   - I think there is potential for annoying bugs if they aren't standardized
+  - this has already cropped up in the node server
 - missing canvas functionality includes
   - line weights
   - line types
   - auto resize the nodes based on the size of the text
   - include fields in the node display
-  - all ajax/node data moving
-    - building a list of changes from the user updates
-    - saving data to the db from the interact page
-- randomize display node locations on create
 
 =============================
 Basic user experiences

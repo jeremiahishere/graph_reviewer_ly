@@ -135,6 +135,10 @@
         this.text.characterStyle.fontSize = 10 * this.scale
         this.text.fillColor = 'green'
         this.text.content = this.name
+
+        //sets the location of the parts
+        //there is a bug somewhere in the above code that puts the text and rect in the wrong place
+        this.update_parts()
       },
       center: function()  {
         return this.position

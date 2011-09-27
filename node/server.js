@@ -1,5 +1,30 @@
 var io = require('socket.io').listen(8080)
 
+var mysql = require('mysql')
+var rails_env = "development" //this is scary
+var db = "graph_reviewer_ly_" + rails_env
+var client = mysql.createClient({
+  user: "root",
+  password: ""
+})
+client.query("use " + db)
+
+function write_graph_structures()  {
+  for(var display_graph_id in graph_structures)  {
+    for(var node_id in graph_structures[display_graph_id])  {
+      node = graph_structures[display_graph_id][node_id]
+      update_sql = "update display_nodes "
+      update_sql += "set x_pos = " + node.x_pos + ", y_pos = " + node.y_pos + ", scale = " + node.scale
+      //this is a bit of a hack because the display node id is not currently being sent to the node server
+      update_sql += " where node_id = " + node_id + " and display_graph_id = " + display_graph_id
+      client.query(update_sql)
+      console.log(update_sql)
+    }
+    graph_structures[display_graph_id] = {}
+  }
+}
+setInterval(write_graph_structures, 10000)
+
 var users = {}
 var graph_structures = {}
 

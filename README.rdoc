@@ -2,6 +2,25 @@ Graph Reviewer Ly
 
 Create, share, and organize graphs such as ERDs
 
+Installing node
+
+git clone https://github.com/joyent/node
+go to the folder
+./configure
+make
+(sudo) make install
+sudo apt-get install curl
+sudo curl http://npmjs.org/install.sh | sh
+go to current/node
+go to node/server.js and change the environment to production
+sudo npm install .
+
+Other setup
+
+go to the current folder and rake assets precompile
+make sure the server can serve port 80 and port 8080
+start the node server
+
 ===========================
 Stuff that is done
 - Creating all the models

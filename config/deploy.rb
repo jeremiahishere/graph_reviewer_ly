@@ -38,3 +38,5 @@ namespace :db do
   end
 end
 after "deploy", "db:migrate"
+
+load 'deploy/assets'

@@ -36,7 +36,8 @@
        } 
    ],
    "dependencies": {
-       "socket.io": ""
+       "socket.io": "",
+       "mysql": ""
    },
    "os": ["linux"],
    "cpu": ["x86", "x86_64"],

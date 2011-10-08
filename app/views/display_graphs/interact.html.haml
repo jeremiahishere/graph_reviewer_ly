@@ -1,5 +1,5 @@
 -# this probably goes into assets somewhere
-<script src="http://dev.graphreviewer.ly:8080/socket.io/socket.io.js"></script>
+<script src="http://graphs.jeremiahhemphill.com:8080/socket.io/socket.io.js"></script>
 
 -# sets the graph structure variable so that is available to paper
 :javascript
@@ -8,7 +8,7 @@
   var socket_id = 0
   var display_graph_id = #{@display_graph.id}
 
-  var socket = io.connect('http://dev.graphreviewer.ly:8080', { display_graph_id: display_graph_id })
+  var socket = io.connect('http://graphs.jeremiahhemphill.com:8080', { display_graph_id: display_graph_id })
   socket.on('init_data', function(data)  {
     socket_id = data.my_id
     socket.emit('register_user', { display_graph_id: display_graph_id });

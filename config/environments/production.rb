@@ -1,5 +1,8 @@
 GraphReviewerLy::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
+  
+  # compiles the css and possiblty javascript
+  config.assets.compile = true
 
   # Code is not reloaded between requests
   config.cache_classes = true

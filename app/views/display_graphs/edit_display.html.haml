@@ -3,8 +3,8 @@ Editing the display for #{@display_graph.name}
 = semantic_form_for @display_graph, :url => update_display_graph_display_path(@display_graph), :method => :post do |f|
   = f.semantic_errors
   = f.inputs do
-    = f.input :display_nodes, :as => :check_boxes, :collection => DisplayNode.ordered_by_name
-    = f.input :display_connections, :as => :check_boxes, :collection => DisplayConnection.ordered_by_name
+    = f.input :nodes, :as => :check_boxes, :collection => @display_graph.graph.nodes.ordered_by_name
+    = f.input :connections, :as => :check_boxes, :collection => @display_graph.graph.connections.sort_by(&:name)
   = f.buttons
 
 = link_to 'Show', @display_graph

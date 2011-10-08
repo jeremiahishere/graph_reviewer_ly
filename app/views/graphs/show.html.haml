@@ -8,10 +8,10 @@
   %p
     %h4 Nodes
     %ul
-      - @graph.nodes.each do |node|
+      - @graph.nodes.ordered_by_name.each do |node|
         %li= node.name
     %hr
-- if @graph.connections.count > 0
+- if @graph.connections.ordered_by_name.count > 0
   %p
     %h4 Connections
     %ul

@@ -5,6 +5,12 @@ class Connection < ActiveRecord::Base
 
   validates_presence_of :start_node_id, :end_node_id
 
+  # this doesn't work
+  # keeping for now but is not being used
+  def self.ordered_by_name
+    sort_by(&:name)
+  end
+
   def name
     return self.start_node.name + " to " + self.end_node.name
   end

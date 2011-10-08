@@ -3,9 +3,12 @@ class DisplayGraph < ActiveRecord::Base
   belongs_to :user
 
   has_many :display_nodes
-  accepts_nested_attributes_for :display_nodes, :allow_destroy => true
+  has_many :nodes, :through => :display_nodes
+  #accepts_nested_attributes_for :display_nodes, :allow_destroy => true
+  
   has_many :display_connections
-  accepts_nested_attributes_for :display_connections, :allow_destroy => true
+  has_many :connections, :through => :display_connections
+  #accepts_nested_attributes_for :display_connections, :allow_destroy => true
 
   has_many :display_graph_permissions
 
@@ -26,6 +29,7 @@ class DisplayGraph < ActiveRecord::Base
     )
   end
 
+  # automatically adds all the nodes to the display graph
   def add_all_the_things!
     self.graph.nodes.each do |node|
       self.display_nodes.push DisplayNode.new(:node => node, :display_graph => self)

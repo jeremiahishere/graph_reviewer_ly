@@ -5,4 +5,6 @@ class Node < ActiveRecord::Base
   has_many :end_connections, :class_name => "Connection", :foreign_key => :end_node_id
 
   validates_presence_of :graph_id, :name
+
+  scope :ordered_by_name, order(:name)
 end

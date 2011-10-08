@@ -6,7 +6,7 @@ class DisplayConnection < ActiveRecord::Base
 
   # order the output by the name function
   def self.ordered_by_name
-    all.sort_by(&:name)
+    sort_by(&:name)
   end
 
   # maybe could include the display graph name in the future

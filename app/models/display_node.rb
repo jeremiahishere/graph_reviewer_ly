@@ -8,7 +8,7 @@ class DisplayNode < ActiveRecord::Base
 
   # order the output by the name function
   def self.ordered_by_name
-    all.sort_by(&:name)
+    sort_by(&:name)
   end
 
   def initialize_location

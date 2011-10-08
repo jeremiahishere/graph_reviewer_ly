@@ -16,11 +16,13 @@ class Graph < ActiveRecord::Base
       node = Node.where(:graph_id => self.id, :name => node_hash[:name]).first
       if node.nil?
         node = Node.create(:graph_id => self.id, :name => node_hash[:name])
+        puts "creating node #{node.inspect}"
       end
 
       node_hash[:fields].each do |field|
         if Field.where(:node_id => node.id, :name => node_hash[:name]).count == 0
-          Field.create(:node_id => node.id, :name => field[:name] )
+          field = Field.create(:node_id => node.id, :name => field[:name] )
+          puts "creating field #{field.inspect}"
         end
       end
     end
@@ -43,6 +45,7 @@ class Graph < ActiveRecord::Base
           :weight => connection[:weight],
           :line_type => "" # no support yet
         )
+        puts "creating connection #{connection.inspect}"
       end
     end
   end

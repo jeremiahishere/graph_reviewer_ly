@@ -4,6 +4,11 @@ class DisplayConnection < ActiveRecord::Base
 
   validates_presence_of :display_graph_id, :connection_id
 
+  # order the output by the name function
+  def self.ordered_by_name
+    all.sort_by(&:name)
+  end
+
   # maybe could include the display graph name in the future
   def name
     self.connection.name

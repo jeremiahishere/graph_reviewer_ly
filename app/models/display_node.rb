@@ -6,6 +6,11 @@ class DisplayNode < ActiveRecord::Base
 
   validates_presence_of :display_graph_id, :node_id
 
+  # order the output by the name function
+  def self.ordered_by_name
+    all.sort_by(&:name)
+  end
+
   def initialize_location
     self.x_pos = 0 unless self.x_pos
     self.y_pos = 0 unless self.y_pos

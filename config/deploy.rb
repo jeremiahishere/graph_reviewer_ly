@@ -28,11 +28,6 @@ namespace :deploy do
   end
 end
 
-task :symlink_repos do
-  run "ln -s /srv/#{application}/shared/repos /srv/#{application}/current/repos"
-end
-after "deploy", "symlink_repos"
-
 namespace :db do
   task :reset do
     run "cd /srv/#{application}/current && rake db:drop RAILS_ENV=#{rails_env} && rake db:create RAILS_ENV=#{rails_env} && rake db:migrate RAILS_ENV=#{rails_env} && rake db:seed RAILS_ENV=#{rails_env}"
